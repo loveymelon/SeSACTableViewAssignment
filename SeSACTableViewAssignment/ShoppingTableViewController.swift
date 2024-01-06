@@ -12,17 +12,19 @@ class ShoppingTableViewController: UITableViewController {
     @IBOutlet var shoppingLabel: UILabel!
     @IBOutlet var plusTextField: UITextField!
     @IBOutlet var plusButton: UIButton!
+    @IBOutlet var resetButton: UIButton!
     
-    var shoppingList = ["그립톡 구매하기", "사이다 구매", "아이패드 케이스 최저가 알아보기", "양말"]
+    var shoppingList = UserDefaults.standard.array(forKey: "ShoppingList") as? [String] ?? ["그립톡 구매하기", "사이다 구매", "아이패드 케이스 최저가 알아보기", "양말"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         designUI()
+        designButton(button: plusButton, text: "추가")
+        designButton(button: resetButton, text: "초기화")
     }
     
     func designUI() {
-        designPlusButton()
         designShoppingLabel()
         designPlusTextField()
     }
@@ -38,11 +40,11 @@ class ShoppingTableViewController: UITableViewController {
         self.plusTextField.backgroundColor = .systemGray5
     }
     
-    func designPlusButton() {
-        self.plusButton.setTitle("추가", for: .normal)
-        self.plusButton.backgroundColor = .systemGray3
-        self.plusButton.layer.cornerRadius = 5
-        self.plusButton.setTitleColor(.black, for: .normal)
+    func designButton(button: UIButton, text: String) {
+        button.setTitle(text, for: .normal)
+        button.backgroundColor = .systemGray3
+        button.layer.cornerRadius = 5
+        button.setTitleColor(.black, for: .normal)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -71,18 +73,28 @@ class ShoppingTableViewController: UITableViewController {
         return 60
     }
     
-    @IBAction func tappedButton(_ sender: UIButton) {
+    @IBAction func tappedPlusButton(_ sender: UIButton) {
         shoppingList.append(plusTextField.text ?? "없음")
+        
+        UserDefaults.standard.set(shoppingList, forKey: "ShoppingList")
         
         self.tableView.reloadData()
     }
     
-    @IBAction func tappedShoppingButton(_ sender: UIButton) {
+    
+    @IBAction func tappedButton(_ sender: UIButton) {
         sender.isSelected.toggle()
-        
-        if sender.isSelected {
-            sender
-        }
     }
     
+    @IBAction func tappedResetButton(_ sender: UIButton) {
+        if self.shoppingList.count > 4 {
+            while shoppingList.count != 4 {
+                shoppingList.remove(at: 4)
+            }
+        }
+        
+        UserDefaults.standard.removeObject(forKey: "ShoppingList")
+        
+        self.tableView.reloadData()
+    }
 }

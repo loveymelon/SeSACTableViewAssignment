@@ -14,4 +14,5 @@ class ShoppingTableViewCell: UITableViewCell {
     @IBOutlet var shoppingView: UIView!
     @IBOutlet var starButton: UIButton!
     
+    
 }
