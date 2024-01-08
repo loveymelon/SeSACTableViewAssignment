@@ -7,21 +7,39 @@
 
 import UIKit
 
+struct Shop: Codable {
+    let productName: String
+    var checkBoxTodo: Bool
+    var starBoxTodo: Bool
+}
+
 class ShoppingTableViewController: UITableViewController {
     
     @IBOutlet var shoppingLabel: UILabel!
     @IBOutlet var plusTextField: UITextField!
     @IBOutlet var plusButton: UIButton!
     @IBOutlet var resetButton: UIButton!
+//    ["그립톡 구매하기", "사이다 구매", "아이패드 케이스 최저가 알아보기", "양말"]
     
-    var shoppingList = UserDefaults.standard.array(forKey: "ShoppingList") as? [String] ?? ["그립톡 구매하기", "사이다 구매", "아이패드 케이스 최저가 알아보기", "양말"]
+    var shoppingList: [Shop] = []
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setShoppingList()
+        
         designUI()
         designButton(button: plusButton, text: "추가")
         designButton(button: resetButton, text: "초기화")
+        
+        print(UserDefaultsManager.shopList)
+    }
+    
+    func setShoppingList() {
+        self.shoppingList = UserDefaultsManager.shopList ?? [Shop(productName: "그립톡 구매하기", checkBoxTodo: false, starBoxTodo: false),
+                                                             Shop(productName: "사이다 구매", checkBoxTodo: false, starBoxTodo: false),
+                                                             Shop(productName: "아이패드 케이스 최저가 알아보기", checkBoxTodo: false, starBoxTodo: false),
+                                                             Shop(productName: "양말", checkBoxTodo: false, starBoxTodo: false)]
     }
     
     func designUI() {
@@ -54,14 +72,18 @@ class ShoppingTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ShoppingTableViewCell", for: indexPath) as! ShoppingTableViewCell
         
-        cell.checkButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
-        cell.checkButton.setImage(UIImage(systemName: "checkmark.square.fill"), for: .selected)
-        cell.starButton.setImage(UIImage(systemName: "star"), for: .normal)
-        cell.starButton.setImage(UIImage(systemName: "star.fill"), for: .selected)
+        let checkImage = !shoppingList[indexPath.row].checkBoxTodo ? "checkmark.square" : "checkmark.square.fill"
+        let starImage = !shoppingList[indexPath.row].starBoxTodo ? "star" : "star.fill"
+        
+        cell.checkButton.setImage(UIImage(systemName: checkImage), for: .normal)
+        cell.starButton.setImage(UIImage(systemName: starImage), for: .normal)
+        
+        cell.starButton.tag = indexPath.row
+        cell.checkButton.tag = indexPath.row
     
         cell.checkButton.tintColor = .black
         cell.starButton.tintColor = .black
-        cell.itemLabel.text = shoppingList[indexPath.row]
+        cell.itemLabel.text = shoppingList[indexPath.row].productName
         
         cell.shoppingView.backgroundColor = .systemGray5
         cell.shoppingView.layer.cornerRadius = 10
@@ -74,26 +96,40 @@ class ShoppingTableViewController: UITableViewController {
     }
     
     @IBAction func tappedPlusButton(_ sender: UIButton) {
-        shoppingList.append(plusTextField.text ?? "없음")
         
-        UserDefaults.standard.set(shoppingList, forKey: "ShoppingList")
+        shoppingList.append(Shop(productName: plusTextField.text!, checkBoxTodo: false, starBoxTodo: false))
+        
+        UserDefaultsManager.shopList = shoppingList
+        
+        print(UserDefaultsManager.shopList)
         
         self.tableView.reloadData()
     }
     
     
     @IBAction func tappedButton(_ sender: UIButton) {
-        sender.isSelected.toggle()
+        let buttonId = (sender.imageView?.image == UIImage(systemName: "checkmark.square")) || (sender.imageView?.image == UIImage(systemName: "checkmark.square.fill")) ? "checkButton" : "startButton"
+        
+        buttonId == "checkButton" ? shoppingList[sender.tag].checkBoxTodo.toggle() : shoppingList[sender.tag].starBoxTodo.toggle()
+        
+        self.tableView.reloadRows(at: [IndexPath(row: sender.tag, section: 0)], with: .fade)
+        print(shoppingList)
     }
     
     @IBAction func tappedResetButton(_ sender: UIButton) {
-        if self.shoppingList.count > 4 {
+        /*if self.shoppingList.count > 4 {
             while shoppingList.count != 4 {
                 shoppingList.remove(at: 4)
             }
-        }
+        }*/
+        self.shoppingList = [Shop(productName: "그립톡 구매하기", checkBoxTodo: false, starBoxTodo: false),
+                             Shop(productName: "사이다 구매", checkBoxTodo: false, starBoxTodo: false),
+                             Shop(productName: "아이패드 케이스 최저가 알아보기", checkBoxTodo: false, starBoxTodo: false),
+                             Shop(productName: "양말", checkBoxTodo: false, starBoxTodo: false)]
         
-        UserDefaults.standard.removeObject(forKey: "ShoppingList")
+        UserDefaults.standard.removeObject(forKey: "Shop")
+        
+        print(UserDefaultsManager.shopList)
         
         self.tableView.reloadData()
     }
