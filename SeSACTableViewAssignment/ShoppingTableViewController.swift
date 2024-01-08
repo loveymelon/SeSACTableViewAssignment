@@ -112,6 +112,7 @@ class ShoppingTableViewController: UITableViewController {
         
         buttonId == "checkButton" ? shoppingList[sender.tag].checkBoxTodo.toggle() : shoppingList[sender.tag].starBoxTodo.toggle()
         
+        UserDefaultsManager.shopList = shoppingList
         self.tableView.reloadRows(at: [IndexPath(row: sender.tag, section: 0)], with: .fade)
         print(shoppingList)
     }
