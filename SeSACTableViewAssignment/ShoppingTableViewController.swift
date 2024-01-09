@@ -72,14 +72,10 @@ class ShoppingTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ShoppingTableViewCell", for: indexPath) as! ShoppingTableViewCell
         
-        let checkImage = !shoppingList[indexPath.row].checkBoxTodo ? "checkmark.square" : "checkmark.square.fill"
-        let starImage = !shoppingList[indexPath.row].starBoxTodo ? "star" : "star.fill"
+        let row = shoppingList[indexPath.row]
+        let indexValue = indexPath.row
         
-        cell.checkButton.setImage(UIImage(systemName: checkImage), for: .normal)
-        cell.starButton.setImage(UIImage(systemName: starImage), for: .normal)
-        
-        cell.starButton.tag = indexPath.row
-        cell.checkButton.tag = indexPath.row
+        cell.settingCell(data: row, index: indexValue)
     
         cell.checkButton.tintColor = .black
         cell.starButton.tintColor = .black
@@ -101,7 +97,6 @@ class ShoppingTableViewController: UITableViewController {
         
         UserDefaultsManager.shopList = shoppingList
         
-        print(UserDefaultsManager.shopList)
         
         self.tableView.reloadData()
     }
@@ -114,7 +109,6 @@ class ShoppingTableViewController: UITableViewController {
         
         UserDefaultsManager.shopList = shoppingList
         self.tableView.reloadRows(at: [IndexPath(row: sender.tag, section: 0)], with: .fade)
-        print(shoppingList)
     }
     
     @IBAction func tappedResetButton(_ sender: UIButton) {
@@ -129,8 +123,6 @@ class ShoppingTableViewController: UITableViewController {
                              Shop(productName: "양말", checkBoxTodo: false, starBoxTodo: false)]
         
         UserDefaults.standard.removeObject(forKey: "Shop")
-        
-        print(UserDefaultsManager.shopList)
         
         self.tableView.reloadData()
     }

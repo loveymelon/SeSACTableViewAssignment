@@ -14,5 +14,14 @@ class ShoppingTableViewCell: UITableViewCell {
     @IBOutlet var shoppingView: UIView!
     @IBOutlet var starButton: UIButton!
     
-    
+    func settingCell(data: Shop, index: Int) {
+        let checkImage = !data.checkBoxTodo ? "checkmark.square" : "checkmark.square.fill"
+        let startImage = !data.starBoxTodo ? "star" : "star.fill"
+        
+        self.checkButton.setImage(UIImage(systemName: checkImage), for: .normal)
+        self.starButton.setImage(UIImage(systemName: startImage), for: .normal)
+        
+        self.starButton.tag = index
+        self.checkButton.tag = index
+    }
 }
