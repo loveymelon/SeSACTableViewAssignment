@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DF75CF292B4E996300AEF2A6 /* ConfiguarUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF75CF282B4E996300AEF2A6 /* ConfiguarUI.swift */; };
+		DF75CF2B2B4E99B200AEF2A6 /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF75CF2A2B4E99B200AEF2A6 /* UILabel+Extension.swift */; };
 		DF7713F52B4BE54300C009D4 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7713F42B4BE54300C009D4 /* UserDefaultsManager.swift */; };
 		DFECA1DC2B47FD5700D7621F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFECA1DB2B47FD5700D7621F /* AppDelegate.swift */; };
 		DFECA1DE2B47FD5700D7621F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFECA1DD2B47FD5700D7621F /* SceneDelegate.swift */; };
@@ -20,6 +22,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DF75CF282B4E996300AEF2A6 /* ConfiguarUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfiguarUI.swift; sourceTree = "<group>"; };
+		DF75CF2A2B4E99B200AEF2A6 /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 		DF7713F42B4BE54300C009D4 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		DFECA1D82B47FD5700D7621F /* SeSACTableViewAssignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SeSACTableViewAssignment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFECA1DB2B47FD5700D7621F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -45,6 +49,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DF75CF2C2B4E9C4800AEF2A6 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				DF75CF282B4E996300AEF2A6 /* ConfiguarUI.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		DF75CF2D2B4E9C5A00AEF2A6 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				DF75CF2A2B4E99B200AEF2A6 /* UILabel+Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		DFECA1CF2B47FD5700D7621F = {
 			isa = PBXGroup;
 			children = (
@@ -64,6 +84,8 @@
 		DFECA1DA2B47FD5700D7621F /* SeSACTableViewAssignment */ = {
 			isa = PBXGroup;
 			children = (
+				DF75CF2D2B4E9C5A00AEF2A6 /* Extension */,
+				DF75CF2C2B4E9C4800AEF2A6 /* Protocol */,
 				DFECA1DB2B47FD5700D7621F /* AppDelegate.swift */,
 				DFECA1DD2B47FD5700D7621F /* SceneDelegate.swift */,
 				DFECA1E12B47FD5700D7621F /* Main.storyboard */,
@@ -150,6 +172,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF75CF292B4E996300AEF2A6 /* ConfiguarUI.swift in Sources */,
 				DFECA1F02B48042E00D7621F /* SettingTableViewController.swift in Sources */,
 				DFECA1F42B480BC600D7621F /* ShoppingTableViewCell.swift in Sources */,
 				DFECA1F22B4804CE00D7621F /* SettingTableViewCell.swift in Sources */,
@@ -157,6 +180,7 @@
 				DFECA1DC2B47FD5700D7621F /* AppDelegate.swift in Sources */,
 				DFECA1DE2B47FD5700D7621F /* SceneDelegate.swift in Sources */,
 				DFECA1F62B480BD700D7621F /* ShoppingTableViewController.swift in Sources */,
+				DF75CF2B2B4E99B200AEF2A6 /* UILabel+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

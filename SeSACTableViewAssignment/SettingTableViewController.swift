@@ -18,20 +18,7 @@ class SettingTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        designSetLabel()
-//        designTableView()
-    }
-    
-    func designTableView() {
-        self.tableView.separatorStyle = .singleLine
-        self.tableView.separatorColor = .systemGray5
-    }
-    
-    func designSetLabel() {
-        self.setLabel.text = "설정"
-        self.setLabel.textColor = .white
-        self.setLabel.font = .boldSystemFont(ofSize: 18)
-        self.setLabel.textAlignment = .center
+        configuarLabel()
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -77,4 +64,13 @@ class SettingTableViewController: UITableViewController {
     }
    
 
+}
+
+// ShoppingTableViewController와 SettingTableViewController에서 label을 설정할때 공통적으로 설정을 하는 부분이 있어서 extension으로 따로 파일을 만들어서 뺐습니다.
+// ShoppingTableViewController와 SettingTableViewController에서 공통적으로 label을 설정하는 함수가 있어 protocol로도 뺐습니다.
+extension SettingTableViewController: ConfiguarUI {
+    func configuarLabel() {
+        self.setLabel.setBodyLabel(text: "설정", color: .white, fontValue: 18, alignment: .center)
+    }
+    
 }

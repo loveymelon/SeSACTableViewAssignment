@@ -26,13 +26,11 @@ class ShoppingTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setShoppingList()
         
-        designUI()
+        designPlusTextField()
         designButton(button: plusButton, text: "추가")
         designButton(button: resetButton, text: "초기화")
-        
-        print(UserDefaultsManager.shopList)
+        configuarLabel()
     }
     
     func setShoppingList() {
@@ -42,16 +40,13 @@ class ShoppingTableViewController: UITableViewController {
                                                              Shop(productName: "양말", checkBoxTodo: false, starBoxTodo: false)]
     }
     
-    func designUI() {
-        designShoppingLabel()
-        designPlusTextField()
-    }
-    
-    func designShoppingLabel() {
+    // ShoppingTableViewController와 SettingTableViewController에서 label을 설정할때 공통적으로 설정을 하는 부분이 있어서 extension으로 따로 파일을 만들어서 뺐습니다.
+    // ShoppingTableViewController와 SettingTableViewController에서 공통적으로 label을 설정하는 함수가 있어 protocol로도 뺐습니다.
+    /*func designShoppingLabel() {
         self.shoppingLabel.text = "쇼핑"
         self.shoppingLabel.font = .boldSystemFont(ofSize: 24)
         self.shoppingLabel.textAlignment = .center
-    }
+    }*/
     
     func designPlusTextField() {
         self.plusTextField.placeholder = "무엇을 구매하실 건가요?"
@@ -126,4 +121,11 @@ class ShoppingTableViewController: UITableViewController {
         
         self.tableView.reloadData()
     }
+}
+
+extension ShoppingTableViewController: ConfiguarUI {
+    func configuarLabel() {
+        self.shoppingLabel.setBodyLabel(text: "쇼핑", fontValue: 24, alignment: .center)
+    }
+    
 }
